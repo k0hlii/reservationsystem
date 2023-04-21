@@ -20,11 +20,6 @@ public class HelloController implements Initializable {
     private SimpleListProperty listProperty = new SimpleListProperty();
 
     private ObservableList<Person> persons;
-//    private ObservableList<Person> persons = FXCollections.observableArrayList(
-//            new Person(1,"Stefan","Müller",1995,"AUT"),
-//            new Person(2,"Jürgen","Huber",1990,"DE"),
-//            new Person(3,"Lukas","Mayer",1989 ,"IT")
-//    );
 
     @FXML
     private ComboBox<Person> cbPersons;
