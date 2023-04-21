@@ -13,8 +13,6 @@ public class Country {
         this.area = area;
     }
 
-
-
     public int getId() {
         return id;
     }
