@@ -1,0 +1,47 @@
+.button
+{
+    -fx-background-color : rgb(50, 50, 50);
+    -fx-text-fill : #e7e5e5;
+}
+.button:hover{
+    -fx-background-color : rgb(50, 50, 200);
+}
+.button:pressed
+{
+    -fx-background-color : rgb(100, 100, 150);
+}
+
+.anchor-pane {
+    -fx-background-color: #eeeeee;
+}
+
+.grid {
+    -fx-background-radius: 10;
+    -fx-background-color: #eeeeee;
+    -fx-border-radius: 10;
+    -fx-border-color: rgb(100, 100, 100);
+    -fx-border-width: 3;
+    -fx-border-insets: -4;
+}
+
+.pane {
+    -fx-border-color: rgb(50,50, 50);
+    -fx-border-width: 2;
+    -fx-border-insets: -1;
+}
+
+.paid {
+    -fx-background-color: #ffff00;
+}
+
+.reserved {
+    -fx-background-color: #ffffff;
+}
+
+.abo {
+    -fx-background-color: #0066ff;
+}
+
+.online {
+    -fx-background-color: #00c4ff;
+}
