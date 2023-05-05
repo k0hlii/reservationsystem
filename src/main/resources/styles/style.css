@@ -45,3 +45,11 @@
 .online {
     -fx-background-color: #00c4ff;
 }
+
+.closed {
+    -fx-background-color: #868686;
+}
+
+.weekday-selected {
+    -fx-background-color: #ce8f11;
+}

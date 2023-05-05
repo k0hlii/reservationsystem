@@ -509,58 +509,70 @@
                         <String fx:value="pane" />
                      </styleClass>
                   </Pane>
+                  <Pane prefHeight="37.0" prefWidth="137.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="15" GridPane.rowSpan="6">
+                     <styleClass>
+                        <String fx:value="closed" />
+                        <String fx:value="pane" />
+                     </styleClass>
+                  </Pane>
+                  <Pane prefHeight="37.0" prefWidth="137.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="8" GridPane.columnSpan="5" GridPane.rowIndex="15" GridPane.rowSpan="6">
+                     <styleClass>
+                        <String fx:value="closed" />
+                        <String fx:value="pane" />
+                     </styleClass>
+                  </Pane>
                </children>
             </GridPane>
          </center>
          <top>
             <HBox prefHeight="52.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Mo">
+                  <Button id="Button" fx:id="btnMo" mnemonicParsing="false" onAction="#handleWeekdaySelect" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Mo">
                      <HBox.margin>
                         <Insets left="40.0" right="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Di">
+                  <Button id="Button" fx:id="btnDi" mnemonicParsing="false" onAction="#handleWeekdaySelect" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Di">
                      <HBox.margin>
                         <Insets right="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Mi">
+                  <Button id="Button" fx:id="btnMi" mnemonicParsing="false" onAction="#handleWeekdaySelect" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Mi">
                      <HBox.margin>
                         <Insets right="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Do">
+                  <Button id="Button" fx:id="btnDo" mnemonicParsing="false" onAction="#handleWeekdaySelect" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Do">
                      <HBox.margin>
                         <Insets right="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Fr">
+                  <Button id="Button" fx:id="btnFr" mnemonicParsing="false" onAction="#handleWeekdaySelect" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Fr">
                      <HBox.margin>
                         <Insets right="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Sa">
+                  <Button id="Button" fx:id="btnSa" mnemonicParsing="false" onAction="#handleWeekdaySelect" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="Sa">
                      <HBox.margin>
                         <Insets right="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="So">
+                  <Button id="Button" fx:id="btnSo" mnemonicParsing="false" onAction="#handleWeekdaySelect" prefHeight="30.0" prefWidth="50.0" stylesheets="@../../../styles/style.css" text="So">
                      <HBox.margin>
                         <Insets right="20.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" stylesheets="@../../../styles/style.css" text="&lt;">
+                  <Button id="Button" fx:id="btnDayback" mnemonicParsing="false" onAction="#handleDayback" prefHeight="30.0" stylesheets="@../../../styles/style.css" text="&lt;">
                      <HBox.margin>
                         <Insets left="250.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <DatePicker promptText="Datum">
+                  <DatePicker fx:id="datepicker" onAction="#handleDatePicker" promptText="Datum">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" top="12.0" />
                      </HBox.margin>
                   </DatePicker>
-                  <Button id="Button" mnemonicParsing="false" prefHeight="30.0" stylesheets="@../../../styles/style.css" text="&gt;">
+                  <Button id="Button" fx:id="btnDayforward" mnemonicParsing="false" onAction="#handleDayforward" prefHeight="30.0" stylesheets="@../../../styles/style.css" text="&gt;">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>

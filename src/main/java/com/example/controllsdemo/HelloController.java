@@ -13,65 +13,123 @@ import model.Person;
 import model.PersonDAO;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.time.LocalDate;
 
-public class HelloController  {
+public class HelloController  implements Initializable{
+    @FXML
+    private DatePicker datepicker;
+    @FXML
+    private Button btnDayback;
+    @FXML
+    private Button btnDayforward;
+    @FXML
+    private Button btnMo;
+    @FXML
+    private Button btnDi;
+    @FXML
+    private Button btnMi;
+    @FXML
+    private Button btnDo;
+    @FXML
+    private Button btnFr;
+    @FXML
+    private Button btnSa;
+    @FXML
+    private Button btnSo;
 
-//    private SimpleListProperty listProperty = new SimpleListProperty();
-//
-//    private ObservableList<Person> persons;
-//
-//
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        persons = PersonDAO.getPersons();
-//
-//        cbPersons.itemsProperty().bind(listProperty);
-//        listProperty.setValue(persons);
-//
-//        spYob.setValueFactory(
-//                new SpinnerValueFactory.IntegerSpinnerValueFactory(1958,2005)
-//       );
-//
-//        cbCountrys.setItems(CountryDAO.getCountrys());
-//    }
-//
-//    @Deprecated
-//    public void handleCbPersonsAction(ActionEvent actionEvent) {
-//        Person p = cbPersons.getSelectionModel().getSelectedItem();
-//        System.out.println(p.getId() +" "+ p);
-//    }
-//
-//    @Deprecated
-//    public void handleMiEditAction(ActionEvent actionEvent) {
-//        Person p = cbPersons.getSelectionModel().getSelectedItem();
-//        if (p == null)
-//            return;
-//
-//        tfFirstName.setText(p.getFirstname());
-//        tfLastName.setText(p.getLastname());
-//        spYob.getValueFactory().setValue(p.getBirthyear());
-//
-////        for (Toggle tg: tgCountrys.getToggles()) {
-////            if (((RadioButton)tg).getText().equals(p.getCountry()))
-////                tgCountrys.selectToggle(tg);
-////        }
-//    }
-//
-//    @Deprecated
-//    public void handleBtnSaveAction(ActionEvent actionEvent) {
-//        Person p = cbPersons.getSelectionModel().getSelectedItem();
-//
-//        if (p ==null)
-//            return;
-//
-//        p.setFirstname(tfFirstName.getText());
-//        p.setLastname(tfLastName.getText());
-//        p.setBirthyear((Integer) spYob.getValue());
-//        //p.setCountry(((RadioButton)tgCountrys.getSelectedToggle()).getText());
-//
-//        int x = cbPersons.getSelectionModel().getSelectedIndex();
-//        persons.set(x,p);
-//        PersonDAO.update(p);
-//    }
+    Button[] weekdaysButtons;
+
+    String[] weekdays = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY","SUNDAY"};
+    String[] shortWeekdays = {"Mo", "Di", "Mi", "Do", "Fr", "Sa","So"};
+
+    @FXML
+    public void handleDatePicker(ActionEvent actionEvent) {
+        datepicker.setValue(datepicker.getValue());
+        updateWeekdays();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        datepicker.setValue(LocalDate.now());
+        weekdaysButtons = new Button[]{btnMo, btnDi, btnMi, btnDo, btnFr, btnSa, btnSo};
+
+        for (int i = 0; i < weekdays.length; i++) {
+            if (weekdays[i].equals(datepicker.getValue().getDayOfWeek().toString())) {
+                weekdaysButtons[i].getStyleClass().add("weekday-selected");
+            }
+        }
+    }
+
+    void updateWeekdays(){
+        btnMo.getStyleClass().remove("weekday-selected");
+        btnDi.getStyleClass().remove("weekday-selected");
+        btnMi.getStyleClass().remove("weekday-selected");
+        btnDo.getStyleClass().remove("weekday-selected");
+        btnFr.getStyleClass().remove("weekday-selected");
+        btnSa.getStyleClass().remove("weekday-selected");
+        btnSo.getStyleClass().remove("weekday-selected");
+
+        for (int i = 0; i < weekdays.length; i++) {
+            if (weekdays[i].equals(datepicker.getValue().getDayOfWeek().toString())) {
+                weekdaysButtons[i].getStyleClass().add("weekday-selected");
+            }
+        }
+    }
+
+    @FXML
+    public void handleDayback(ActionEvent actionEvent) {
+        datepicker.setValue(datepicker.getValue().minusDays(1));
+
+        updateWeekdays();
+    }
+
+    @FXML
+    public void handleDayforward(ActionEvent actionEvent) {
+        datepicker.setValue(datepicker.getValue().plusDays(1));
+
+        updateWeekdays();
+    }
+
+    @FXML
+    public void handleWeekdaySelect(ActionEvent actionEvent) {
+        Button btn = (Button) actionEvent.getSource();
+        String btnText = btn.getText();
+
+        btnMo.getStyleClass().remove("weekday-selected");
+        btnDi.getStyleClass().remove("weekday-selected");
+        btnMi.getStyleClass().remove("weekday-selected");
+        btnDo.getStyleClass().remove("weekday-selected");
+        btnFr.getStyleClass().remove("weekday-selected");
+        btnSa.getStyleClass().remove("weekday-selected");
+        btnSo.getStyleClass().remove("weekday-selected");
+
+        btn.getStyleClass().add("weekday-selected");
+
+        String dayOfWeek = datepicker.getValue().getDayOfWeek().toString();
+
+        int day1 = 0;
+        int day2 = 0;
+
+        for (int i = 0; i < weekdays.length; i++) {
+            if (dayOfWeek.equals(weekdays[i])) {
+                 day1 = i;
+            }
+        }
+
+        for (int i = 0; i < shortWeekdays.length; i++) {
+            if (btnText.equals(shortWeekdays[i])) {
+                day2 = i;
+            }
+        }
+
+        if (day1 < day2) {
+            datepicker.setValue(datepicker.getValue().plusDays(day2 - day1));
+        } else if (day1 > day2) {
+            datepicker.setValue(datepicker.getValue().minusDays(day1 - day2));
+        } else {
+            datepicker.setValue(datepicker.getValue());
+        }
+    }
 }
