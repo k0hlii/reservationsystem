@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -10,7 +9,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -469,58 +467,6 @@
                         <Font size="11.0" />
                      </font>
                   </Label>
-                  <Pane prefHeight="36.0" prefWidth="72.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="5.0" text="Max" />
-                        <Label layoutX="5.0" layoutY="15.0" text="Mustermann" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="reserved" />
-                        <String fx:value="pane" />
-                     </styleClass>
-                  </Pane>
-                  <Pane prefHeight="36.0" prefWidth="72.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
-                     <children>
-                        <Label layoutX="5.0" layoutY="5.0" text="Max" />
-                        <Label layoutX="5.0" layoutY="15.0" text="Mustermann" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="paid" />
-                        <String fx:value="pane" />
-                     </styleClass>
-                  </Pane>
-                  <Pane prefHeight="36.0" prefWidth="72.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                     <children>
-                        <Label layoutX="5.0" layoutY="5.0" text="Max" />
-                        <Label layoutX="5.0" layoutY="15.0" text="Mustermann" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="abo" />
-                        <String fx:value="pane" />
-                     </styleClass>
-                  </Pane>
-                  <Pane prefHeight="36.0" prefWidth="72.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="5" GridPane.rowIndex="4">
-                     <children>
-                        <Label layoutX="5.0" layoutY="5.0" text="Max" />
-                        <Label layoutX="5.0" layoutY="15.0" text="Mustermann" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="online" />
-                        <String fx:value="pane" />
-                     </styleClass>
-                  </Pane>
-                  <Pane prefHeight="37.0" prefWidth="137.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="15" GridPane.rowSpan="6">
-                     <styleClass>
-                        <String fx:value="closed" />
-                        <String fx:value="pane" />
-                     </styleClass>
-                  </Pane>
-                  <Pane prefHeight="37.0" prefWidth="137.0" stylesheets="@../../../styles/style.css" GridPane.columnIndex="8" GridPane.columnSpan="5" GridPane.rowIndex="15" GridPane.rowSpan="6">
-                     <styleClass>
-                        <String fx:value="closed" />
-                        <String fx:value="pane" />
-                     </styleClass>
-                  </Pane>
                </children>
             </GridPane>
          </center>

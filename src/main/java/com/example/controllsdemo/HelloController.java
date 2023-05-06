@@ -46,6 +46,7 @@ public class HelloController  implements Initializable{
     String[] weekdays = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY","SUNDAY"};
     String[] shortWeekdays = {"Mo", "Di", "Mi", "Do", "Fr", "Sa","So"};
 
+    int courts = 10;
 
     @FXML
     public void handleDatePicker(ActionEvent actionEvent) {
@@ -53,6 +54,14 @@ public class HelloController  implements Initializable{
         updateWeekdays();
     }
 
+    public Pane createPane(Reservation reservation)
+    {
+        Pane pane = new Pane(new Label(""+reservation.customer.firstname +"\n"+reservation.customer.lastname));
+
+        pane.getStyleClass().add("pane");
+
+        return pane;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         datepicker.setValue(LocalDate.now());
@@ -61,13 +70,16 @@ public class HelloController  implements Initializable{
         updateWeekdays();
 
         Customer customer = new Customer("John", "Doe");
+        Reservation reservation = new Reservation(1,2,3,customer,new Date());
 
-        Pane pane = new Pane(new Label(""+customer.firstname +"\n"+customer.lastname));
-
-        pane.getStyleClass().add("pane");
+        Pane pane = createPane(reservation);
         pane.getStyleClass().add("abo");
 
-        grid.add(pane, 5, 2);
+        grid.setRowSpan(pane,reservation.sessions);
+        grid.setColumnSpan(pane,reservation.court_count);
+        grid.add(pane, reservation.court%courts +1, reservation.court/courts +1);
+
+
     }
 
     void updateWeekdays(){

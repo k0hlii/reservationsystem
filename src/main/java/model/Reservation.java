@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Reservation {
 
-    int court;
-    int court_count;
-    int sessions;
-    Customer customer;
-    Date date;
+    public int court;
+    public int court_count;
+    public int sessions;
+    public Customer customer;
+    public Date date;
 
     public Reservation(int court, int court_count, int sessions, Customer customer, Date date) {
         this.court = court;
