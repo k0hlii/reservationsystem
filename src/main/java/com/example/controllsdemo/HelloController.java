@@ -7,10 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import model.Country;
-import model.CountryDAO;
-import model.Person;
-import model.PersonDAO;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import model.*;
 
 import java.net.URL;
 import java.util.Date;
@@ -39,10 +38,14 @@ public class HelloController  implements Initializable{
     @FXML
     private Button btnSo;
 
+    @FXML
+    private GridPane grid;
+
     Button[] weekdaysButtons;
 
     String[] weekdays = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY","SUNDAY"};
     String[] shortWeekdays = {"Mo", "Di", "Mi", "Do", "Fr", "Sa","So"};
+
 
     @FXML
     public void handleDatePicker(ActionEvent actionEvent) {
@@ -55,21 +58,22 @@ public class HelloController  implements Initializable{
         datepicker.setValue(LocalDate.now());
         weekdaysButtons = new Button[]{btnMo, btnDi, btnMi, btnDo, btnFr, btnSa, btnSo};
 
-        for (int i = 0; i < weekdays.length; i++) {
-            if (weekdays[i].equals(datepicker.getValue().getDayOfWeek().toString())) {
-                weekdaysButtons[i].getStyleClass().add("weekday-selected");
-            }
-        }
+        updateWeekdays();
+
+        Customer customer = new Customer("John", "Doe");
+
+        Pane pane = new Pane(new Label(""+customer.firstname +"\n"+customer.lastname));
+
+        pane.getStyleClass().add("pane");
+        pane.getStyleClass().add("abo");
+
+        grid.add(pane, 5, 2);
     }
 
     void updateWeekdays(){
-        btnMo.getStyleClass().remove("weekday-selected");
-        btnDi.getStyleClass().remove("weekday-selected");
-        btnMi.getStyleClass().remove("weekday-selected");
-        btnDo.getStyleClass().remove("weekday-selected");
-        btnFr.getStyleClass().remove("weekday-selected");
-        btnSa.getStyleClass().remove("weekday-selected");
-        btnSo.getStyleClass().remove("weekday-selected");
+        for (Button btn :weekdaysButtons) {
+            btn.getStyleClass().remove("weekday-selected");
+        }
 
         for (int i = 0; i < weekdays.length; i++) {
             if (weekdays[i].equals(datepicker.getValue().getDayOfWeek().toString())) {
@@ -97,15 +101,7 @@ public class HelloController  implements Initializable{
         Button btn = (Button) actionEvent.getSource();
         String btnText = btn.getText();
 
-        btnMo.getStyleClass().remove("weekday-selected");
-        btnDi.getStyleClass().remove("weekday-selected");
-        btnMi.getStyleClass().remove("weekday-selected");
-        btnDo.getStyleClass().remove("weekday-selected");
-        btnFr.getStyleClass().remove("weekday-selected");
-        btnSa.getStyleClass().remove("weekday-selected");
-        btnSo.getStyleClass().remove("weekday-selected");
-
-        btn.getStyleClass().add("weekday-selected");
+        updateWeekdays();
 
         String dayOfWeek = datepicker.getValue().getDayOfWeek().toString();
 

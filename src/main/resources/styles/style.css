@@ -28,6 +28,16 @@
     -fx-border-color: rgb(50,50, 50);
     -fx-border-width: 2;
     -fx-border-insets: -1;
+    -fx-spacing: 50;
+    -fx-content-display: block;
+
+}
+
+.pane > .label {
+    -fx-font-size: 10;
+    -fx-font-weight: bold;
+    -fx-label-padding: 5 5 5 5;
+
 }
 
 .paid {
