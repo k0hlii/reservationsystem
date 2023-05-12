@@ -5,18 +5,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.*;
+import reservationmenu.FXMLReservationmenu_Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
 
-public class HelloController  implements Initializable{
+public class HelloController  implements Initializable {
     @FXML
     private DatePicker datepicker;
     @FXML
@@ -42,14 +49,81 @@ public class HelloController  implements Initializable{
     private GridPane grid;
 
     Button[] weekdaysButtons;
-
     String[] weekdays = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY","SUNDAY"};
     String[] shortWeekdays = {"Mo", "Di", "Mi", "Do", "Fr", "Sa","So"};
 
     int courts = 10;
 
+    Pane[] reservationPanes = new Pane[200];
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        datepicker.setValue(LocalDate.now());
+        weekdaysButtons = new Button[]{btnMo, btnDi, btnMi, btnDo, btnFr, btnSa, btnSo};
+        updateWeekdays();
+
+        reservationPanes[0] = createPane(new Reservation(0,1,1,new Customer("John", "Doe"),new Date()));
+        reservationPanes[16] = createPane(new Reservation(16,1,1,new Customer("John", "Doe"),new Date()));
+        reservationPanes[32] = createPane(new Reservation(32,1,1,new Customer("John", "Doe"),new Date()));
+
+        addClass(reservationPanes[0], "abo");
+        loadReservations(reservationPanes);
+
+        Button[] reseravtionButtons = new Button[200];
+        for (int i = 0; i < 200; i++) {
+            reseravtionButtons[i] = new Button(""+i);
+            reseravtionButtons[i].setOnAction(this::handleReservationButton);
+            reseravtionButtons[i].setOpacity(0);
+            reseravtionButtons[i].setPrefHeight(100);
+            reseravtionButtons[i].setPrefWidth(100);
+            if (i%courts >= 5 ) {
+                grid.add(reseravtionButtons[i], i%courts +3, i/courts +1);
+            }
+            else {
+                grid.add(reseravtionButtons[i], i%courts +1, i/courts +1);
+            }
+        }
+    }
+
+    void handleReservationButton(ActionEvent actionEvent)
+    {
+        Button button = (Button) actionEvent.getSource();
+
+
+        int court = Integer.parseInt(button.getText());
+        Reservation reservation = new Reservation(court,1,1,new Customer("John", "Doe"),new Date());
+        displayReservation(reservation);
+        reservationPanes[court] = createPane(reservation);
+        int count = 0;
+        for (int i = 0; i < 200; i++) {
+            if (reservationPanes[i] != null) {
+                count++;
+            }
+        }
+
+        System.out.println("count: "+count);
+
+    try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("src/main/java/reservationmenu/FXML_reservationmenu.fxml"));
+        Parent root = loader.load();                            //Wurzelcontrol
+        FXMLReservationmenu_Controller ctrl = loader.getController();  //ref. Controlerobj
+//        ctrl.setPerson(actPerson);
+        Stage stage = new Stage();
+        stage.initModality(Modality.WINDOW_MODAL);              //im Vordergrund
+        stage.setScene(new Scene(root));
+        stage.showAndWait();                                    //Anzeige
+        System.out.println("after Dialog: ");
+//        myPersonList.set(inx, actPerson);
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+    }
+
     @FXML
-    public void handleDatePicker(ActionEvent actionEvent) {
+    public void handleDatePicker(ActionEvent actionEvent)
+    {
         datepicker.setValue(datepicker.getValue());
         updateWeekdays();
     }
@@ -57,32 +131,54 @@ public class HelloController  implements Initializable{
     public Pane createPane(Reservation reservation)
     {
         Pane pane = new Pane(new Label(""+reservation.customer.firstname +"\n"+reservation.customer.lastname));
-
         pane.getStyleClass().add("pane");
-
         return pane;
     }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        datepicker.setValue(LocalDate.now());
-        weekdaysButtons = new Button[]{btnMo, btnDi, btnMi, btnDo, btnFr, btnSa, btnSo};
 
-        updateWeekdays();
-
-        Customer customer = new Customer("John", "Doe");
-        Reservation reservation = new Reservation(1,2,3,customer,new Date());
-
+    public void displayReservation(Reservation reservation)
+    {
         Pane pane = createPane(reservation);
-        pane.getStyleClass().add("abo");
+        reservationPanes[reservation.court] = pane;
 
         grid.setRowSpan(pane,reservation.sessions);
         grid.setColumnSpan(pane,reservation.court_count);
-        grid.add(pane, reservation.court%courts +1, reservation.court/courts +1);
 
-
+        if (reservation.court%courts >= 5 ) {
+            grid.add(pane, reservation.court%courts +3, reservation.court/courts +1);
+        }
+        else {
+            grid.add(pane, reservation.court%courts +1, reservation.court/courts +1);
+        }
     }
 
-    void updateWeekdays(){
+    public void addClass(Pane pane, String className)
+    {
+        pane.getStyleClass().add(className);
+    }
+
+    public void loadReservations(Pane[] reservationPanes)
+    {
+
+        for (int i = 0; i < 200; i++) {
+            if (reservationPanes[i] != null) {
+                grid.getChildren().remove(reservationPanes[i]);
+            }
+        }
+
+        for (int i = 0; i < reservationPanes.length; i++) {
+            if (reservationPanes[i] != null) {
+                if (i%courts >= 5 ) {
+                    grid.add(reservationPanes[i], i%courts +3, i/courts +1);
+                }
+                else {
+                    grid.add(reservationPanes[i], i%courts +1, i/courts +1);
+                }
+            }
+        }
+    }
+
+    void updateWeekdays()
+    {
         for (Button btn :weekdaysButtons) {
             btn.getStyleClass().remove("weekday-selected");
         }
@@ -95,21 +191,24 @@ public class HelloController  implements Initializable{
     }
 
     @FXML
-    public void handleDayback(ActionEvent actionEvent) {
+    public void handleDayback(ActionEvent actionEvent)
+    {
         datepicker.setValue(datepicker.getValue().minusDays(1));
 
         updateWeekdays();
     }
 
     @FXML
-    public void handleDayforward(ActionEvent actionEvent) {
+    public void handleDayforward(ActionEvent actionEvent)
+    {
         datepicker.setValue(datepicker.getValue().plusDays(1));
 
         updateWeekdays();
     }
 
     @FXML
-    public void handleWeekdaySelect(ActionEvent actionEvent) {
+    public void handleWeekdaySelect(ActionEvent actionEvent)
+    {
         Button btn = (Button) actionEvent.getSource();
         String btnText = btn.getText();
 
