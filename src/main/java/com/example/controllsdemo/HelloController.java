@@ -104,6 +104,8 @@ public class HelloController  implements Initializable {
 
     private void loadReservationsDay() {
         grid.getChildren().removeAll(reservationPanes);
+
+
         for (int i = 0; i < dates.length; i++) {
             if (dates[i] != null) {
                 System.out.println("date: "+dates[i].date + " datepicker: "+datepicker.getValue() + " i: "+i);
