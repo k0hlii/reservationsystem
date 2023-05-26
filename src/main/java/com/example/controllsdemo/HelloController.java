@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import model.*;
 import reservationmenu.FXMLReservationmenu_Controller;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -51,6 +52,7 @@ public class HelloController  implements Initializable {
     Button[] weekdaysButtons;
     String[] weekdays = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY","SUNDAY"};
     String[] shortWeekdays = {"Mo", "Di", "Mi", "Do", "Fr", "Sa","So"};
+    DayReservations[] dates = new DayReservations[7];
 
     int courts = 10;
 
@@ -67,8 +69,22 @@ public class HelloController  implements Initializable {
         reservationPanes[16] = createPane(new Reservation(16,1,1,new Customer("John", "Doe"),new Date()));
         reservationPanes[32] = createPane(new Reservation(32,1,1,new Customer("John", "Doe"),new Date()));
 
+        DayReservations date = new DayReservations(datepicker.getValue(), reservationPanes);
+
+
+        Pane[] reservationPanes2 = new Pane[200];
+
+        reservationPanes2[12] = createPane(new Reservation(12,1,1,new Customer("John", "Schnee"),new Date()));
+        reservationPanes2[12*2] = createPane(new Reservation(12*2,1,1,new Customer("John", "Stark"),new Date()));
+        reservationPanes2[12*3] = createPane(new Reservation(12*3,1,1,new Customer("Jürgen", "Schmidt"),new Date()));
+
+        DayReservations date2 = new DayReservations(datepicker.getValue().plusDays(1), reservationPanes2);
+
+        dates[0] = date;
+        dates[1] = date2;
+        loadReservationsDay();
+
         addClass(reservationPanes[0], "abo");
-        loadReservations(reservationPanes);
 
         Button[] reseravtionButtons = new Button[200];
         for (int i = 0; i < 200; i++) {
@@ -86,15 +102,32 @@ public class HelloController  implements Initializable {
         }
     }
 
+    private void loadReservationsDay() {
+        grid.getChildren().removeAll(reservationPanes);
+        for (int i = 0; i < dates.length; i++) {
+            if (dates[i] != null) {
+                System.out.println("date: "+dates[i].date + " datepicker: "+datepicker.getValue() + " i: "+i);
+            }
+            if (dates[i] != null && dates[i].date.equals(datepicker.getValue()) ) {
+                System.out.println("date: "+dates[i].date + " datepicker: "+datepicker.getValue() + " i: "+i);
+                reservationPanes = dates[i].reservations;
+                loadReservations(reservationPanes);
+                return;
+            }
+        }
+        grid.getChildren().removeAll(reservationPanes);
+    }
+
     void handleReservationButton(ActionEvent actionEvent)
     {
         Button button = (Button) actionEvent.getSource();
 
-
         int court = Integer.parseInt(button.getText());
         Reservation reservation = new Reservation(court,1,1,new Customer("John", "Doe"),new Date());
-        displayReservation(reservation);
+        createPane(reservation);
         reservationPanes[court] = createPane(reservation);
+
+        loadReservations(reservationPanes);
         int count = 0;
         for (int i = 0; i < 200; i++) {
             if (reservationPanes[i] != null) {
@@ -104,21 +137,21 @@ public class HelloController  implements Initializable {
 
         System.out.println("count: "+count);
 
-    try {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("src/main/java/reservationmenu/FXML_reservationmenu.fxml"));
-        Parent root = loader.load();                            //Wurzelcontrol
-        FXMLReservationmenu_Controller ctrl = loader.getController();  //ref. Controlerobj
-//        ctrl.setPerson(actPerson);
-        Stage stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);              //im Vordergrund
-        stage.setScene(new Scene(root));
-        stage.showAndWait();                                    //Anzeige
-        System.out.println("after Dialog: ");
-//        myPersonList.set(inx, actPerson);
-    } catch (IOException ex) {
-        ex.printStackTrace();
-    }
+//    try {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("src/main/java/reservationmenu/FXML_reservationmenu.fxml"));
+//        Parent root = loader.load();                            //Wurzelcontrol
+//        FXMLReservationmenu_Controller ctrl = loader.getController();  //ref. Controlerobj
+////        ctrl.setPerson(actPerson);
+//        Stage stage = new Stage();
+//        stage.initModality(Modality.WINDOW_MODAL);              //im Vordergrund
+//        stage.setScene(new Scene(root));
+//        stage.showAndWait();                                    //Anzeige
+//        System.out.println("after Dialog: ");
+////        myPersonList.set(inx, actPerson);
+//    } catch (IOException ex) {
+//        ex.printStackTrace();
+//    }
     }
 
     @FXML
@@ -126,6 +159,7 @@ public class HelloController  implements Initializable {
     {
         datepicker.setValue(datepicker.getValue());
         updateWeekdays();
+        loadReservationsDay();
     }
 
     public Pane createPane(Reservation reservation)
@@ -158,7 +192,6 @@ public class HelloController  implements Initializable {
 
     public void loadReservations(Pane[] reservationPanes)
     {
-
         for (int i = 0; i < 200; i++) {
             if (reservationPanes[i] != null) {
                 grid.getChildren().remove(reservationPanes[i]);
@@ -196,6 +229,7 @@ public class HelloController  implements Initializable {
         datepicker.setValue(datepicker.getValue().minusDays(1));
 
         updateWeekdays();
+        loadReservationsDay();
     }
 
     @FXML
@@ -204,6 +238,7 @@ public class HelloController  implements Initializable {
         datepicker.setValue(datepicker.getValue().plusDays(1));
 
         updateWeekdays();
+        loadReservationsDay();
     }
 
     @FXML
@@ -213,6 +248,7 @@ public class HelloController  implements Initializable {
         String btnText = btn.getText();
 
         updateWeekdays();
+        loadReservationsDay();
 
         String dayOfWeek = datepicker.getValue().getDayOfWeek().toString();
 
