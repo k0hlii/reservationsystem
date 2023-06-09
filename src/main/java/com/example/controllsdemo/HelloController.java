@@ -1,13 +1,9 @@
 package com.example.controllsdemo;
 
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -15,7 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
-import reservationmenu.FXMLReservationmenu_Controller;
 
 
 import java.io.IOException;
@@ -121,26 +116,36 @@ public class HelloController  implements Initializable {
 
     void handleReservationButton(ActionEvent actionEvent)
     {
-        Button button = (Button) actionEvent.getSource();
+//        Button button = (Button) actionEvent.getSource();
+//
+//        int court = Integer.parseInt(button.getText());
+//        Reservation reservation = new Reservation(court,1,1,new Customer("John", "Doe"),new Date());
+//        createPane(reservation);
+//        reservationPanes[court] = createPane(reservation);
+//
+//        loadReservations(reservationPanes);
+//        int count = 0;
+//        for (int i = 0; i < 200; i++) {
+//            if (reservationPanes[i] != null) {
+//                count++;
+//            }
+//        }
+//
+//        System.out.println("count: "+count);
 
-        int court = Integer.parseInt(button.getText());
-        Reservation reservation = new Reservation(court,1,1,new Customer("John", "Doe"),new Date());
-        createPane(reservation);
-        reservationPanes[court] = createPane(reservation);
+        try {
+            Stage stage = new Stage();
 
-        loadReservations(reservationPanes);
-        int count = 0;
-        for (int i = 0; i < 200; i++) {
-            if (reservationPanes[i] != null) {
-                count++;
-            }
-        }
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("reservationmenu.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Reservation System");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+            stage.show();
 
-        System.out.println("count: "+count);
-
-//    try {
 //        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("src/main/java/reservationmenu/FXML_reservationmenu.fxml"));
+//        loader.setLocation(getClass().getResource("reservationmenu.fxml"));
 //        Parent root = loader.load();                            //Wurzelcontrol
 //        FXMLReservationmenu_Controller ctrl = loader.getController();  //ref. Controlerobj
 ////        ctrl.setPerson(actPerson);
@@ -149,10 +154,10 @@ public class HelloController  implements Initializable {
 //        stage.setScene(new Scene(root));
 //        stage.showAndWait();                                    //Anzeige
 //        System.out.println("after Dialog: ");
-////        myPersonList.set(inx, actPerson);
-//    } catch (IOException ex) {
-//        ex.printStackTrace();
-//    }
+//        myPersonList.set(inx, actPerson);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML

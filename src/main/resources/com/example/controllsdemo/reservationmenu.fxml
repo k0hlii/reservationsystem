@@ -8,27 +8,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="276.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservationmenu.FXMLReservationmenu_Controller">
+<AnchorPane prefHeight="276.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllsdemo.Reservationmenu_Controller">
    <children>
       <VBox layoutX="71.0" layoutY="30.0" prefHeight="182.0" prefWidth="243.0">
          <children>
             <HBox prefHeight="36.0" prefWidth="243.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="67.0" text="Kunde" />
-                  <ComboBox prefHeight="25.0" prefWidth="154.0" />
+                  <ComboBox fx:id="cbCustomer" onAction="#handlecbCustomer" prefHeight="25.0" prefWidth="154.0" />
                </children>
             </HBox>
             <HBox prefHeight="36.0" prefWidth="243.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="67.0" text="Kunde" />
-                  <Spinner prefHeight="25.0" prefWidth="154.0" />
+                  <Label prefHeight="17.0" prefWidth="67.0" text="Plätze" />
+                  <Spinner fx:id="spCourts" prefHeight="25.0" prefWidth="154.0" />
                </children>
             </HBox>
             <HBox prefHeight="36.0" prefWidth="243.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="67.0" text="Einheiten" />
-                  <Spinner prefHeight="25.0" prefWidth="154.0" />
+                  <Spinner fx:id="spSessions" prefHeight="25.0" prefWidth="154.0" />
                </children>
             </HBox>
          </children>
