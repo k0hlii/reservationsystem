@@ -12,9 +12,9 @@ public class DBConnector {
   
   public static Connection connect() throws SQLException{  
     try{  
-      Class.forName("com.mysql.jdbc.Driver").newInstance();  
+      Class.forName("com.mysql.jdbc.Driver").newInstance();
     }catch(ClassNotFoundException cnfe){  
-      System.err.println("Error Class not found: "+cnfe.getMessage());  
+      System.err.println("Error Class not found: "+cnfe.getMessage());
     }catch(InstantiationException ie){  
       System.err.println("Error Instantiation Exception: "+ie.getMessage());  
     }catch(IllegalAccessException iae){  

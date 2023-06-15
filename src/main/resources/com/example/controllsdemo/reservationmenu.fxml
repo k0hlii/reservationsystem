@@ -32,7 +32,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="122.0" layoutY="234.0" mnemonicParsing="false" text="OK" />
-      <Button layoutX="184.0" layoutY="234.0" mnemonicParsing="false" text="Abbrechen" />
+      <Button fx:id="btnSubmit" layoutX="122.0" layoutY="234.0" mnemonicParsing="false" onAction="#handlSubmit" text="OK" />
+      <Button fx:id="btnCancel" layoutX="184.0" layoutY="234.0" mnemonicParsing="false" onAction="#handlebtnCancel" text="Abbrechen" />
    </children>
 </AnchorPane>

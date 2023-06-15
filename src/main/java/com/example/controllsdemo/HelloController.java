@@ -15,6 +15,7 @@ import model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
@@ -116,22 +117,15 @@ public class HelloController  implements Initializable {
 
     void handleReservationButton(ActionEvent actionEvent)
     {
-//        Button button = (Button) actionEvent.getSource();
-//
-//        int court = Integer.parseInt(button.getText());
-//        Reservation reservation = new Reservation(court,1,1,new Customer("John", "Doe"),new Date());
-//        createPane(reservation);
-//        reservationPanes[court] = createPane(reservation);
-//
-//        loadReservations(reservationPanes);
-//        int count = 0;
-//        for (int i = 0; i < 200; i++) {
-//            if (reservationPanes[i] != null) {
-//                count++;
-//            }
-//        }
-//
-//        System.out.println("count: "+count);
+        Button btn = (Button) actionEvent.getSource();
+
+        SharedDataModel data = new SharedDataModel();
+        data.setCourt(Integer.parseInt(btn.getText()));
+
+
+        LocalDate localDate = datepicker.getValue();
+        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        SharedDataModel.setDate(date);
 
         try {
             Stage stage = new Stage();
@@ -141,20 +135,8 @@ public class HelloController  implements Initializable {
             stage.setTitle("Reservation System");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            stage.showAndWait();
             stage.show();
 
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("reservationmenu.fxml"));
-//        Parent root = loader.load();                            //Wurzelcontrol
-//        FXMLReservationmenu_Controller ctrl = loader.getController();  //ref. Controlerobj
-////        ctrl.setPerson(actPerson);
-//        Stage stage = new Stage();
-//        stage.initModality(Modality.WINDOW_MODAL);              //im Vordergrund
-//        stage.setScene(new Scene(root));
-//        stage.showAndWait();                                    //Anzeige
-//        System.out.println("after Dialog: ");
-//        myPersonList.set(inx, actPerson);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

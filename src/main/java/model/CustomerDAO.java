@@ -15,7 +15,7 @@ public class CustomerDAO {
         Connection con;
         try {
             con = DBConnector.connect();
-            String sql = "SELECT * FROM Reservierungen";
+            String sql = "SELECT * FROM Kunde";
 
             ResultSet rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {

@@ -9,7 +9,7 @@ public class Reservation {
     public int court_count;
     public int sessions;
     public Customer customer;
-    public Date date;
+    public java.util.Date date;
     int id;
     float price;
     int cusomerID;
@@ -23,15 +23,13 @@ public class Reservation {
         this.date = date;
     }
 
-    public Reservation(int reservierungsID, int anzahlPlätze, int anzahlEinheiten, float preis, java.sql.Date datum, Time uhrzeit, int platz, int kundenID, String zustand) {
-        this.id = reservierungsID;
+    public Reservation( int anzahlPlätze, int anzahlEinheiten, float preis, Date datum, Time uhrzeit, int platz, int kundenID, String zustand) {
         this.court_count = anzahlPlätze;
         this.sessions = anzahlEinheiten;
         this.price = preis;
         this.date = datum;
         this.cusomerID = kundenID;
         this.state = zustand;
-
     }
 
 
@@ -45,5 +43,4 @@ public class Reservation {
                 ", date=" + date +
                 '}';
     }
-
 }
