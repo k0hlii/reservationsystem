@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
@@ -58,6 +55,15 @@ public class Reservationmenu_Controller implements Initializable {
 
     @FXML
     public void handlSubmit(ActionEvent actionEvent) {
+
+//        if (cbCustomer.getSelectionModel().isEmpty()) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("No customer selected");
+//            alert.setContentText("Please select a customer");
+//            alert.showAndWait();
+//            return;
+//        }
         SharedDataModel data = new SharedDataModel();
 
         float price = 10.5F;
