@@ -4,13 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Customer;
 import model.Reservation;
 import model.ReservationDAO;
 import model.SharedDataModel;
 
-import java.sql.Time;
-import java.util.Date;
 
 public class Paymenu
 {
@@ -38,7 +35,7 @@ public class Paymenu
         }
 
         tfCustomer.setText(reservation.customer.firstname + " " + reservation.customer.lastname);
-        tfPrice.setText(String.valueOf(String.format("%.2f", price) + "€"));
+        tfPrice.setText(String.format("%.2f", price) + "€");
         tfCntSessions.setText(String.valueOf(sessions));
     }
 

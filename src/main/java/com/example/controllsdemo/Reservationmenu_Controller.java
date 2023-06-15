@@ -1,7 +1,6 @@
 package com.example.controllsdemo;
-import javafx.beans.Observable;
+
 import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,12 +30,9 @@ public class Reservationmenu_Controller implements Initializable {
     private Spinner<Integer> spCourts;
     @javafx.fxml.FXML
     private Spinner<Integer> spSessions;
-    @javafx.fxml.FXML
-    private Button btnSubmit;
+
     @javafx.fxml.FXML
     private Button btnCancel;
-    @FXML
-    private Button btnAddCustomer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -77,7 +73,6 @@ public class Reservationmenu_Controller implements Initializable {
 
         Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
-
 
     }
 

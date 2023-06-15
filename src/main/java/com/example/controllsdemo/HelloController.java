@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -25,10 +24,6 @@ import java.time.LocalDate;
 public class HelloController  implements Initializable {
     @FXML
     private DatePicker datepicker;
-    @FXML
-    private Button btnDayback;
-    @FXML
-    private Button btnDayforward;
     @FXML
     private Button btnMo;
     @FXML
@@ -50,13 +45,12 @@ public class HelloController  implements Initializable {
     Button[] weekdaysButtons;
     String[] weekdays = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY","SUNDAY"};
     String[] shortWeekdays = {"Mo", "Di", "Mi", "Do", "Fr", "Sa","So"};
-    DayReservations[] dates = new DayReservations[7];
 
     int courts = 10;
 
     Pane[] reservationPanes = new Pane[200];
 
-    ObservableList<Reservation> reservations ;
+    ObservableList<Reservation> reservations;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -90,13 +84,11 @@ public class HelloController  implements Initializable {
         grid.getChildren().removeAll(reservationPanes);
 
         LocalDate localDate = datepicker.getValue();
-        System.out.println(localDate);
 
         // Convert LocalDate to java.util.Date
         Date utilDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         reservations = ReservationDAO.getReservations(utilDate);
-        System.out.println(reservations.size());
 
         reservationPanes = new Pane[200];
         for (int i = 0; i < reservations.size(); i++) {
@@ -112,7 +104,6 @@ public class HelloController  implements Initializable {
 
         for (int i = 0; i < reservations.size(); i++) {
             if (reservations.get(i).court == Integer.parseInt(btn.getText())) {
-                System.out.println(reservations.get(i).customer.firstname);
                 SharedDataModel data = new SharedDataModel();
                 data.setReservation(reservations.get(i));
                 try {
@@ -191,16 +182,11 @@ public class HelloController  implements Initializable {
         grid.setColumnSpan(pane,reservation.court_count);
 
         try {
-            addClass(pane, reservation.state);
+            pane.getStyleClass().add(reservation.state);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void addClass(Pane pane, String className)
-    {
-        pane.getStyleClass().add(className);
     }
 
 
@@ -242,7 +228,6 @@ public class HelloController  implements Initializable {
 
         updateWeekdays();
         updateReservations();
-
 
         String dayOfWeek = datepicker.getValue().getDayOfWeek().toString();
 

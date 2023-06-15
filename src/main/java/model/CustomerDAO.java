@@ -62,8 +62,6 @@ public class CustomerDAO {
             preparedStatement.setString(4, c.email);
             preparedStatement.setInt(5, c.addressID);
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println(rowsAffected + " row(s) inserted successfully.");
         } catch (SQLException ex) {
             System.err.println("Error executing SQL: " + ex.getMessage());
         }
