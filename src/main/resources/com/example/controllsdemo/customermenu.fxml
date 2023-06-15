@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="308.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllsdemo.Customermenu">
+    <VBox layoutX="71.0" layoutY="30.0" prefHeight="182.0" prefWidth="243.0">
+        <children>
+            <HBox prefHeight="36.0" prefWidth="243.0">
+                <children>
+                    <Label prefHeight="17.0" prefWidth="67.0" text="Vorname" />
+               <TextField fx:id="inpVorname" />
+                </children>
+            </HBox>
+         <HBox prefHeight="36.0" prefWidth="243.0">
+            <children>
+               <Label prefHeight="17.0" prefWidth="67.0" text="Nachname" />
+               <TextField fx:id="inpNachname" />
+            </children>
+         </HBox>
+         <HBox prefHeight="36.0" prefWidth="243.0">
+            <children>
+               <Label prefHeight="17.0" prefWidth="67.0" text="Tel. Nr." />
+               <TextField fx:id="inpTelNr" />
+            </children>
+         </HBox>
+         <HBox prefHeight="36.0" prefWidth="243.0">
+            <children>
+               <Label prefHeight="17.0" prefWidth="67.0" text="Email" />
+               <TextField fx:id="inpEmail" />
+            </children>
+         </HBox>
+        </children>
+    </VBox>
+    <Button fx:id="btnSubmit" layoutX="122.0" layoutY="234.0" mnemonicParsing="false" onAction="#handlSubmit" text="OK" />
+    <Button fx:id="btnCancel" layoutX="184.0" layoutY="234.0" mnemonicParsing="false" onAction="#handlebtnCancel" text="Abbrechen" />
+</AnchorPane>

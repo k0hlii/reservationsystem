@@ -4,14 +4,19 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
 
+import java.io.IOException;
 import java.net.URL;
 
 import java.util.Date;
@@ -30,6 +35,8 @@ public class Reservationmenu_Controller implements Initializable {
     private Button btnSubmit;
     @javafx.fxml.FXML
     private Button btnCancel;
+    @FXML
+    private Button btnAddCustomer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -53,7 +60,7 @@ public class Reservationmenu_Controller implements Initializable {
 
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void handlSubmit(ActionEvent actionEvent) {
         SharedDataModel data = new SharedDataModel();
 
@@ -61,19 +68,45 @@ public class Reservationmenu_Controller implements Initializable {
 
         Date date = data.getDate();
         System.out.println(date);
-        int customerID = 1;
+        Customer customer = (Customer) cbCustomer.getSelectionModel().getSelectedItem();
+
         String state ="reserved";
-        Reservation r = new Reservation(spCourts.getValue(),spSessions.getValue(),price,date,new Time(654),data.getCourt(),customerID,state);
+        Reservation r = new Reservation(spCourts.getValue(),spSessions.getValue(),price,date,new Time(654),data.getCourt(),customer.id,state);
 
         ReservationDAO.add(r);
 
         Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
+
+
     }
 
     @javafx.fxml.FXML
     public void handlebtnCancel(ActionEvent actionEvent) {
         Stage currentStage = (Stage) btnCancel.getScene().getWindow();
         currentStage.close();
+    }
+
+    @FXML
+    public void handleAddCustomer(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("customermenu.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Reservation System");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            SimpleListProperty listProperty = new SimpleListProperty();
+            ObservableList<Customer> customers = CustomerDAO.getCustomer();
+
+            listProperty.setValue(customers);
+            cbCustomer.itemsProperty().bind(listProperty);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

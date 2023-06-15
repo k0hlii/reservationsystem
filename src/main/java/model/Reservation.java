@@ -13,7 +13,7 @@ public class Reservation {
     int id;
     float price;
     int cusomerID;
-    String state;
+    public String state;
 
     public Reservation(int court, int court_count, int sessions, Customer customer, Date date) {
         this.court = court;
@@ -23,13 +23,26 @@ public class Reservation {
         this.date = date;
     }
 
-    public Reservation( int anzahlPlätze, int anzahlEinheiten, float preis, Date datum, Time uhrzeit, int platz, int kundenID, String zustand) {
+    public Reservation(int id, int anzahlPlätze, int anzahlEinheiten, float preis, Date datum, Time uhrzeit, int platz, int kundenID, String zustand) {
+        this.id = id;
         this.court_count = anzahlPlätze;
         this.sessions = anzahlEinheiten;
         this.price = preis;
         this.date = datum;
         this.cusomerID = kundenID;
         this.state = zustand;
+        this.customer = CustomerDAO.getCustomerbyID(kundenID);
+        this.court = platz;
+    }
+    public Reservation(int anzahlPlätze, int anzahlEinheiten, float preis, Date datum, Time uhrzeit, int platz, int kundenID, String zustand) {
+        this.court_count = anzahlPlätze;
+        this.sessions = anzahlEinheiten;
+        this.price = preis;
+        this.date = datum;
+        this.cusomerID = kundenID;
+        this.state = zustand;
+        this.customer = CustomerDAO.getCustomerbyID(kundenID);
+        this.court = platz;
     }
 
 

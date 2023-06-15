@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class ReservationDAO {
     public static ObservableList<Reservation> getReservations() {
@@ -21,18 +22,54 @@ public class ReservationDAO {
 
             ResultSet rs = con.createStatement().executeQuery(sql);
             while (rs.next()) {
-//                reservations.add(new Reservation(
-//                        rs.getInt("ReservierungsID"),
-//                        rs.getInt("AnzahlPlätze"),
-//                        rs.getInt("AnzahlEinheiten"),
-//                        rs.getFloat("Preis"),
-//                        rs.getDate("Datum"),
-//                        rs.getTime("Uhrzeit"),
-//                        rs.getInt("Platz"),
-//                        rs.getInt("KundenID"),
-//                        rs.getString("Zustand")
-//                        )
-//                );
+                reservations.add(new Reservation(
+                        rs.getInt("ReservierungsID"),
+                        rs.getInt("AnzahlPlätze"),
+                        rs.getInt("AnzahlEinheiten"),
+                        rs.getFloat("Preis"),
+                        rs.getDate("Datum"),
+                        rs.getTime("Uhrzeit"),
+                        rs.getInt("Platz"),
+                        rs.getInt("KundenID"),
+                        rs.getString("Zustand")
+                        )
+                );
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        return reservations;
+    }
+
+    public static ObservableList<Reservation> getReservations(Date date) {
+        java.util.Date utilDate = date; // Assuming r.date is a java.util.Date object
+
+        // Convert java.util.Date to java.sql.Date
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+
+        Connection con;
+        try {
+            con = DBConnector.connect();
+            String sql = "SELECT * FROM Reservierungen WHERE Datum = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setDate(1, sqlDate);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                reservations.add(new Reservation(
+                                rs.getInt("ReservierungsID"),
+                                rs.getInt("AnzahlPlätze"),
+                                rs.getInt("AnzahlEinheiten"),
+                                rs.getFloat("Preis"),
+                                rs.getDate("Datum"),
+                                rs.getTime("Uhrzeit"),
+                                rs.getInt("Platz"),
+                                rs.getInt("KundenID"),
+                                rs.getString("Zustand")
+                        )
+                );
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -60,7 +97,7 @@ public class ReservationDAO {
             preparedStatement.setString(5, "09:00:00");
             preparedStatement.setInt(6, r.court);
             preparedStatement.setInt(7, r.cusomerID);
-            preparedStatement.setString(8, "test");
+            preparedStatement.setString(8, "reserved");
 
             int rowsAffected = preparedStatement.executeUpdate();
             System.out.println(rowsAffected + " row(s) inserted successfully.");

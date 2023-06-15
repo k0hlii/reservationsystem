@@ -15,7 +15,8 @@
             <HBox prefHeight="36.0" prefWidth="243.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="67.0" text="Kunde" />
-                  <ComboBox fx:id="cbCustomer" onAction="#handlecbCustomer" prefHeight="25.0" prefWidth="154.0" />
+                  <ComboBox fx:id="cbCustomer" onAction="#handlecbCustomer" prefHeight="25.0" prefWidth="130.0" />
+                  <Button fx:id="btnAddCustomer" mnemonicParsing="false" onAction="#handleAddCustomer" text="+" />
                </children>
             </HBox>
             <HBox prefHeight="36.0" prefWidth="243.0">

@@ -1,7 +1,7 @@
 package model;
 
 public class Customer {
-    int id;
+    public int id;
     public String firstname;
     public String lastname;
     String phone;
@@ -20,6 +20,22 @@ public class Customer {
         this.phone = phone;
         this.email = email;
         this.addressID = addressID;
+    }
+
+    public Customer(String firstname, String lastname, String phone, String email, int addressID) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.addressID = addressID;
+    }
+
+
+
+
+
+    public int getID() {
+        return this.id;
     }
 
     @Override
