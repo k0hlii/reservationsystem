@@ -120,15 +120,15 @@ public class ReservationDAO {
 //            System.err.println(""+ex.getMessage());
 //        }
     }
-//    public static void update(Person p) {
-//        Connection con;
-//
-//        try {
-//            con = DBConnector.connect();
-//            String sql = "UPDATE persons SET last_name = '" + p.getLastname() + "', first_name = '" + p.getFirstname() + "', dob = '" + p.getBirthyear() + "', country = '" + p.getCountry() + "' WHERE id = " + p.getId();
-//            con.createStatement().executeUpdate(sql);
-//        } catch (SQLException ex) {
-//            System.err.println(ex.getMessage());
-//        }
-//    }
+    public static void update(Reservation r) {
+        Connection con;
+
+        try {
+            con = DBConnector.connect();
+            String sql = "UPDATE Reservierungen SET Zustand = '" + r.state + "' WHERE ReservierungsID = " + r.id;
+            con.createStatement().executeUpdate(sql);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
 }

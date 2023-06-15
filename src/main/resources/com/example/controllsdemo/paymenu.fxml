@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="287.0" prefWidth="222.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controllsdemo.Paymenu">
+    <children>
+      <VBox layoutX="8.0" layoutY="14.0" prefHeight="154.0" prefWidth="210.0">
+         <children>
+            <HBox prefHeight="39.0" prefWidth="210.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="51.0" text="Kunde" />
+                  <TextField fx:id="tfCustomer" prefHeight="25.0" prefWidth="146.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="210.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="118.0" text="Anz. Einheiten" />
+                  <TextField fx:id="tfCntSessions" prefHeight="25.0" prefWidth="84.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="210.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="60.0" text="Preis" />
+                  <TextField fx:id="tfPrice" prefHeight="25.0" prefWidth="141.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+        <Button fx:id="btnPay" layoutX="43.0" layoutY="234.0" mnemonicParsing="false" onAction="#handlePay" text="Pay" />
+        <Button fx:id="btnCancel" layoutX="123.0" layoutY="234.0" mnemonicParsing="false" onAction="#handlebtnCancel" text="Abbrechen" />
+    </children>
+</AnchorPane>

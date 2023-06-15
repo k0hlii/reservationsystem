@@ -94,7 +94,7 @@ public class Reservationmenu_Controller implements Initializable {
 
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("customermenu.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Reservation System");
+            stage.setTitle("New Customer");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();

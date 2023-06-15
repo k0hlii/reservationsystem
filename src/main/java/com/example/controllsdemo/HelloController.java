@@ -65,28 +65,10 @@ public class HelloController  implements Initializable {
         weekdaysButtons = new Button[]{btnMo, btnDi, btnMi, btnDo, btnFr, btnSa, btnSo};
         updateWeekdays();
 
-//        reservationPanes[0] = createPane(new Reservation(0,1,1,new Customer("John", "Doe"),new Date()));
-//        reservationPanes[16] = createPane(new Reservation(16,1,1,new Customer("John", "Doe"),new Date()));
-//        reservationPanes[32] = createPane(new Reservation(32,1,1,new Customer("John", "Doe"),new Date()));
-//
-//        DayReservations date = new DayReservations(datepicker.getValue(), reservationPanes);
-//
-//
-//        Pane[] reservationPanes2 = new Pane[200];
-//
-//        reservationPanes2[12] = createPane(new Reservation(12,1,1,new Customer("John", "Schnee"),new Date()));
-//        reservationPanes2[12*2] = createPane(new Reservation(12*2,1,1,new Customer("John", "Stark"),new Date()));
-//        reservationPanes2[12*3] = createPane(new Reservation(12*3,1,1,new Customer("Jürgen", "Schmidt"),new Date()));
-//
-//        DayReservations date2 = new DayReservations(datepicker.getValue().plusDays(1), reservationPanes2);
-//
-//        dates[0] = date;
-//        dates[1] = date2;
-//        loadReservationsDay();
-//
-//        addClass(reservationPanes[0], "abo");
         updateReservations();
+    }
 
+    private void drawButtons() {
         Button[] reseravtionButtons = new Button[200];
         for (int i = 0; i < 200; i++) {
             reseravtionButtons[i] = new Button(""+i);
@@ -104,6 +86,7 @@ public class HelloController  implements Initializable {
     }
 
     private void updateReservations() {
+
         grid.getChildren().removeAll(reservationPanes);
 
         LocalDate localDate = datepicker.getValue();
@@ -115,38 +98,61 @@ public class HelloController  implements Initializable {
         reservations = ReservationDAO.getReservations(utilDate);
         System.out.println(reservations.size());
 
-
         reservationPanes = new Pane[200];
         for (int i = 0; i < reservations.size(); i++) {
-//            System.out.println(reservations.get(i));
-//            reservationPanes[reservations.get(i).court] = createPane(reservations.get(i));
             displayReservation(reservations.get(i));
-
         }
+        drawButtons();
+
     }
 
     void handleReservationButton(ActionEvent actionEvent)
     {
         Button btn = (Button) actionEvent.getSource();
 
-        SharedDataModel data = new SharedDataModel();
-        data.setCourt(Integer.parseInt(btn.getText()));
+        for (int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).court == Integer.parseInt(btn.getText())) {
+                System.out.println(reservations.get(i).customer.firstname);
+                SharedDataModel data = new SharedDataModel();
+                data.setReservation(reservations.get(i));
+                try {
+                    Stage stage = new Stage();
 
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("paymenu.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    stage.setTitle("New Reservation");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(scene);
+                    stage.showAndWait();
 
-        LocalDate localDate = datepicker.getValue();
-        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        SharedDataModel.setDate(date);
+                    updateReservations();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                finally {
+                    return;
+                }
+
+            }
+        }
+
 
         try {
+            SharedDataModel data = new SharedDataModel();
+            data.setCourt(Integer.parseInt(btn.getText()));
+
+            LocalDate localDate = datepicker.getValue();
+            Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            SharedDataModel.setDate(date);
             Stage stage = new Stage();
 
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("reservationmenu.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Reservation System");
+            stage.setTitle("New Reservation");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
-            System.out.println("sdfsdf");
+
             updateReservations();
 
         } catch (IOException ex) {

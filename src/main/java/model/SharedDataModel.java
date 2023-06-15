@@ -6,6 +6,8 @@ public class SharedDataModel {
     private static int court;
     private static Date date;
 
+    private static Reservation reservation;
+
     public static Date getDate() {
         return date;
     }
@@ -22,5 +24,12 @@ public class SharedDataModel {
         SharedDataModel.court = court;
     }
 
+    public void setReservation(Reservation reservation) {
+        SharedDataModel.reservation = reservation;
+    }
+
+    public static Reservation getReservation() {
+        return reservation;
+    }
 }
 
