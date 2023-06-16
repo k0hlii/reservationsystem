@@ -4,7 +4,13 @@
 Das ist das Projekt für den Informatikunterricht
 
 
+## ER Diagramm
 
+https://lucid.app/lucidchart/invitations/accept/inv_99953974-dd7c-4b5c-86b5-04b1db1f2434
+
+## UML Diagramm
+
+https://lucid.app/lucidchart/invitations/accept/inv_b3cbe29c-6dad-4750-9b21-318b245d6d70
 
 ## Datenbank erstellen
 
